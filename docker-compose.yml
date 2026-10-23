@@ -1,0 +1,36 @@
+version: '3.8'
+
+networks:
+  lamp-net:
+    driver: bridge
+
+services:
+  webdb:
+    image: docker.io/library/mariadb:latest
+    container_name: lamp-db
+    networks:
+      - lamp-net
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: root_db
+      MARIA_DB_PORT: 3306
+    restart: always
+    volumes:
+      - ./db_data:/var/lib/mysql:Z
+
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lamp-web
+    networks:
+      - lamp-net
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html:Z
+      - ./share:/home/docker/share:Z
+    depends_on:
+      - webdb

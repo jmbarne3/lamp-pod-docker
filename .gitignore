@@ -1,0 +1,12 @@
+# Track only the container setup. Everything inside these folders stays local;
+# the .gitkeep files keep the empty folders so the compose volume mounts work.
+db_data/*
+!db_data/.gitkeep
+www/*
+!www/.gitkeep
+share/*
+!share/.gitkeep
+
+# Local backups and OS clutter
+*.bak
+.DS_Store
