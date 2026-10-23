@@ -10,3 +10,6 @@ share/*
 # Local backups and OS clutter
 *.bak
 .DS_Store
+
+# Local settings (copy .env.example to .env)
+.env
